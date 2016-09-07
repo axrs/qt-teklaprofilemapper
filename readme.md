@@ -18,3 +18,30 @@ Instead of manually processing the `PROFILE_NAME`s into a desired `DISPLAY_NAME`
 ## Notes:
 - Only tested on Windows 7.
 - Only tested with `PROFILE DATABASE EXPORT VERSION = 3`. Other versions should work however.
+
+
+### Example Profile Exported from Tekla
+#### Before Mapping
+```
+PROFILE_NAME = "UB150*14";
+{
+    TYPE = 1; SUB_TYPE = 1001; COORDINATE = 0.000;
+    {
+        ...<snip>...
+        "DISPLAY_NAME"                      ""
+    }
+}
+```
+
+#### After Mapping
+
+```
+PROFILE_NAME = "UB150*14";
+{
+    TYPE = 1; SUB_TYPE = 1001; COORDINATE = 0.000;
+    {
+        ...<snip>...
+        "DISPLAY_NAME"                      "150UB14"
+    }
+}
+```
