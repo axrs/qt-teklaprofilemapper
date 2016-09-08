@@ -2,6 +2,7 @@
 #define PROFILEMAPPER_H
 #include <QObject>
 #include <QStringList>
+#include <QString>
 
 class ProfileMapper : public QObject
 {
@@ -18,7 +19,10 @@ class FakeProfileMapper : public ProfileMapper
         Q_OBJECT
         Q_INTERFACES(ProfileMapper)
     public:
-        FakeProfileMapper(QObject *parent=0) : ProfileMapper(parent){
+        FakeProfileMapper(QObject *parent=0) : FakeProfileMapper(QString("DISPLAY_NAME"), parent) {
+
+        }
+        FakeProfileMapper(QString & key, QObject *parent=0) : ProfileMapper(parent), m_key(key) {
 
         }
         ~FakeProfileMapper(){}
@@ -37,7 +41,7 @@ class FakeProfileMapper : public ProfileMapper
             profileList <<  "        \"WEB_THICKNESS\"                     5.000000000E+000";
             profileList <<  "        \"FLANGE_THICKNESS\"                  7.000000000E+000";
             //profileList:10 THIS IS THE LINE WE ARE LOOKING TO POPULATE.
-            profileList <<  "        \"DISPLAY_NAME\"                      \"\"";
+            profileList << QString("%1%2%3").arg("", -8).arg("\"" + m_key + "\"", -36).arg("\"\"");
             profileList <<  "    }";
             profileList <<  "}";
 
@@ -50,12 +54,15 @@ class FakeProfileMapper : public ProfileMapper
             profileList <<  "        \"COVER_AREA\"                        6.690000000E+004";
             profileList <<  "        \"CROSS_SECTION_AREA\"                8.100000000E+001";
             //profileList:21 THIS IS THE LINE WE ARE LOOKING TO POPULATE.
-            profileList <<  "        \"DISPLAY_NAME\"                      \"\"";
+            profileList << QString("%1%2%3").arg("", -8).arg("\"" + m_key + "\"", -36).arg("\"\"");
             profileList <<  "    }";
             profileList <<  "}";
 
             return profileList;
         }
+
+    private:
+        QString m_key;
 };
 
 #endif // PROFILEMAPPER_H
