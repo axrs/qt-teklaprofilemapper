@@ -9,7 +9,16 @@ GTTransformedProfile::GTTransformedProfile(Profile *p, QObject *parent) : Profil
 
 QString GTTransformedProfile::displayName() const
 {
+
     QString profileName = m_profile->displayName();
+
+    //If the profile names don't contain a star. There is a chance that they
+    //don't need to be transformed just yet. Until a condition arrises when they
+    //need to, this is the simpliest logic to apply.
+    if (!profileName.contains("*")){
+        return profileName;
+    }
+
     QString profileType = "";
 
     for(int i = 0; i < profileName.length(); i++){
