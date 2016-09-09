@@ -17,3 +17,4 @@ SOURCES += main.cpp
 
 include ("../defaults.pri")
 include ("../src/includes.pri")
+include ("gitversion.pri")

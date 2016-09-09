@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     Q_UNUSED(argc);
 
     QTextStream out(stdout, QIODevice::WriteOnly);
-    out << QString("Tekla Profile Mapper") << endl;
+    out << "Tekla Profile Mapper (Version: " << GIT_VERSION << ")" << endl;
 
     if (argc < 2) {
         out << QString("No input file found. Mapping has not run.") << endl;
