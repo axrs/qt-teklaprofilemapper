@@ -2,6 +2,7 @@
 #define TEKLAPROFILEPROCESSOR_H
 
 #include <QObject>
+#include <QString>
 #include "profilemapper.h"
 
 class TeklaProfileMapper : public ProfileMapper
@@ -11,6 +12,8 @@ class TeklaProfileMapper : public ProfileMapper
 
     public:
         explicit TeklaProfileMapper(ProfileMapper* mapper, QObject *parent = 0);
+        explicit TeklaProfileMapper(ProfileMapper* mapper, QString &replacementKey, QObject *parent = 0);
+
         ~TeklaProfileMapper(){
             delete m_mapper;
         }
@@ -21,6 +24,7 @@ class TeklaProfileMapper : public ProfileMapper
 
     private:
         ProfileMapper * m_mapper;
+        QString m_replacementKey;
 };
 
 #endif // TEKLAPROFILEPROCESSOR_H

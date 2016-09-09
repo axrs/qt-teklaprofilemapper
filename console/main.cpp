@@ -16,19 +16,33 @@ int main(int argc, char *argv[])
 
     if (argc < 2) {
         out << QString("No input file found. Mapping has not run.") << endl;
-    }else{
-        out << QString("Analyzing profiles from: ") << QString(argv[1]) << endl;
-        out.flush();
-
-        QStringList result = TeklaProfileMapper(new FileProfileMapper(QString(argv[1]))).process();
-        out << "\t" << result.length() << QString(" Lines Processed") << endl;
-
-        out << QString("Exporting profiles to: ") << QDir::current().absolutePath() << endl;
-        out.flush();
-
-        FileWriter(result, QString("mapped_profiles.lis")).save();
-        out << "\t" << QString("Profiles successfuly exported") << endl;
+        return 0;
     }
+
+    QString udaKey;
+    do{
+        out << "Provide a UDA key without spaces to map to <DISPLAY_NAME>: ";
+        out.flush();
+        udaKey = QTextStream(stdin).readLine();
+
+        if (udaKey.isEmpty()){
+            udaKey = "DISPLAY_NAME";
+        }
+
+    }while(udaKey.contains(" "));
+
+    out << "Using UDA Key `" << udaKey << "` for mapping profiles." << endl;
+    out << "Analyzing profiles from: " << argv[1] << endl;
+    out.flush();
+
+    QStringList result = TeklaProfileMapper(new FileProfileMapper(QString(argv[1])), udaKey).process();
+    out << "\t" << result.length() << QString(" Lines Processed") << endl;
+
+    out << "Exporting profiles to: " << QDir::current().absolutePath() << endl;
+    out.flush();
+
+    FileWriter(result, QString("mapped_profiles.lis")).save();
+    out << "\t" << QString("Profiles successfuly exported") << endl;
 
     out.flush();
     system("PAUSE");
